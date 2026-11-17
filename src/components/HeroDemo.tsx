@@ -52,7 +52,7 @@ function Check() {
   )
 }
 
-export default function ConvrtHero() {
+export default function ConvrtHero({ ask = 'Hi! Saw your ad. How much is it?', reply = 'Hi Sara! Happy to help. Want to book a visit? Tue or Thu?' }: { ask?: string; reply?: string }) {
   return (
     <Stage width={720} height={460} compact={{ below: 480, width: 358, height: 460 }} initial={initial} poster={poster} script={script} play="once" className="cvh">
       {(s, _rect, layout) => (
@@ -100,10 +100,10 @@ export default function ConvrtHero() {
                   </div>
                 </div>
               </div>
-              <Bubble from="them">Hi! Saw your ad. How much is a skin consultation?</Bubble>
+              <Bubble from="them">{ask}</Bubble>
               {s.reply && (
                 <Bubble from="me" typing={s.replyTyping}>
-                  Hi Sara! Happy to help. Want to book one? Tue or Thu?
+                  {reply}
                 </Bubble>
               )}
               {s.answer && (

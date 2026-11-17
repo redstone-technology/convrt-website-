@@ -1,0 +1,8 @@
+---
+import Base from '../../layouts/Base.astro'
+import Home from '../../components/Home.astro'
+import { ar as t } from '../../i18n/ar'
+---
+<Base t={t} enPath="/clinics" title={t.meta.clinicsTitle} description={t.meta.clinicsDescription}>
+  <Home t={t} c={t.clinics} />
+</Base>

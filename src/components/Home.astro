@@ -1,28 +1,29 @@
 ---
 import HeroDemo from './HeroDemo.tsx'
 import type { Dict } from '../i18n/en'
-interface Props { t: Dict }
-const { t } = Astro.props
-const start = t.lang === 'ar' ? '/ar/start' : '/start'
-const p = t.plan.frag
+interface Props { t: Dict; c: Dict['home']; segments?: boolean }
+const { t, c, segments = false } = Astro.props
+const prefix = t.lang === 'ar' ? '/ar' : ''
+const start = `${prefix}/start`
+const p = c.plan.frag
 ---
 <!-- 1. Their goal -->
 <section class="hero">
   <div class="wrap">
     <h1 class="hero__title">
-      {t.hero.titleA}<br />
-      <span class="hero__u">{t.hero.titleB}</span>
+      {c.hero.titleA}<br />
+      <span class="hero__u">{c.hero.titleB}</span>
     </h1>
-    <p class="lede hero__sub">{t.hero.sub}</p>
+    <p class="lede hero__sub">{c.hero.sub}</p>
     <div class="hero__actions">
-      <a href={start} class="btn">{t.hero.cta}</a>
+      <a href={start} class="btn">{c.hero.cta}</a>
     </div>
-    <p class="hero__note">{t.hero.note}</p>
+    <p class="hero__note">{c.hero.note}</p>
   </div>
   <div class="wrap scene">
     <div class="plate" dir="ltr">
       <div class="plate__stage" data-ss-fill>
-        <HeroDemo client:visible />
+        <HeroDemo client:visible ask={c.hero.demo.ask} reply={c.hero.demo.reply} />
       </div>
     </div>
   </div>
@@ -31,31 +32,56 @@ const p = t.plan.frag
 <!-- 2. The problem -->
 <section class="problem" id="problem">
   <div class="wrap problem__grid">
-    <h2 class="problem__title">{t.problem.titleA} <span>{t.problem.titleB}</span></h2>
+    <h2 class="problem__title">{c.problem.titleA} <span>{c.problem.titleB}</span></h2>
     <div class="problem__copy lede">
-      {t.problem.body.map((x) => <p>{x}</p>)}
+      {c.problem.body.map((x) => <p>{x}</p>)}
     </div>
     <div class="fact glass">
-      <span class="fact__n ltr">{t.problem.fact.value}</span>
-      <p>{t.problem.fact.text}</p>
-      <cite><a href={t.problem.fact.href} rel="noopener">{t.problem.fact.cite}</a></cite>
+      <span class="fact__n ltr">{c.problem.fact.value}</span>
+      <p>{c.problem.fact.text}</p>
+      <cite><a href={c.problem.fact.href} rel="noopener">{c.problem.fact.cite}</a></cite>
     </div>
   </div>
 </section>
+
+{segments && (
+  <section class="segs" id="segments">
+    <div class="wrap">
+      <h2 class="h2">{t.segments.title}</h2>
+      <p class="lede segs__sub">{t.segments.sub}</p>
+      <div class="segs__grid">
+        {t.segments.items.map((g) =>
+          g.href ? (
+            <a class="seg glass seg--link" href={`${prefix}${g.href}`}>
+              <h3>{g.name}</h3>
+              <p>{g.leak}</p>
+              <span class="seg__more">{t.segments.more} <span aria-hidden="true">→</span></span>
+            </a>
+          ) : (
+            <div class="seg glass">
+              <h3>{g.name}</h3>
+              <p>{g.leak}</p>
+            </div>
+          )
+        )}
+      </div>
+    </div>
+  </section>
+)}
 
 <!-- 3. The plan -->
 <section class="moves" id="how">
   <div class="wrap moves__grid">
     <div class="moves__intro">
-      <h2 class="h2">{t.plan.titleA}<br />{t.plan.titleB}</h2>
-      <p class="lede">{t.plan.sub}</p>
+      <h2 class="h2">{c.plan.titleA}<br />{c.plan.titleB}</h2>
+      <p class="lede">{c.plan.sub}</p>
     </div>
     <ol class="moves__list glass">
       <li class="move">
-        <span class="move__n">{t.plan.steps[0].n}</span>
+        <span class="move__n">{c.plan.steps[0].n}</span>
         <div>
-          <h3>{t.plan.steps[0].title}</h3>
-          <p>{t.plan.steps[0].body}</p>
+          <h3>{c.plan.steps[0].title}</h3>
+          <p>{c.plan.steps[0].body}</p>
         </div>
         <div class="frag" aria-hidden="true">
           <div class="chips">
@@ -65,10 +91,10 @@ const p = t.plan.frag
         </div>
       </li>
       <li class="move">
-        <span class="move__n">{t.plan.steps[1].n}</span>
+        <span class="move__n">{c.plan.steps[1].n}</span>
         <div>
-          <h3>{t.plan.steps[1].title}</h3>
-          <p>{t.plan.steps[1].body}</p>
+          <h3>{c.plan.steps[1].title}</h3>
+          <p>{c.plan.steps[1].body}</p>
         </div>
         <div class="frag" aria-hidden="true">
           <div class="funnel">
@@ -83,10 +109,10 @@ const p = t.plan.frag
         </div>
       </li>
       <li class="move">
-        <span class="move__n">{t.plan.steps[2].n}</span>
+        <span class="move__n">{c.plan.steps[2].n}</span>
         <div>
-          <h3>{t.plan.steps[2].title}</h3>
-          <p>{t.plan.steps[2].body}</p>
+          <h3>{c.plan.steps[2].title}</h3>
+          <p>{c.plan.steps[2].body}</p>
         </div>
         <div class="frag" aria-hidden="true">
           <p class="bubble">{p.reminder}</p>
@@ -100,25 +126,25 @@ const p = t.plan.frag
 <!-- 4. Proof -->
 <section class="proof-sec" id="results">
   <div class="wrap">
-    <h2 class="h2">{t.results.title}</h2>
-    <p class="lede proof-sec__sub">{t.results.body}</p>
+    <h2 class="h2">{c.results.title}</h2>
+    <p class="lede proof-sec__sub">{c.results.body}</p>
     <div class="board glass">
       <div class="board__table">
         <div class="board__row board__row--head">
-          {t.results.table.head.map((h) => <span>{h}</span>)}
+          {c.results.table.head.map((h) => <span>{h}</span>)}
         </div>
-        {t.results.table.rows.map((r, i) => (
+        {c.results.table.rows.map((r, i) => (
           <div class={`board__row ${i === 0 ? 'is-top' : ''}`}>
             <span>{r[0]}</span>
             <span class="ltr">{r[1]}</span>
             <span class="ltr board__after">{r[2]}</span>
           </div>
         ))}
-        <p class="board__note">{t.results.note}</p>
+        <p class="board__note">{c.results.note}</p>
       </div>
       <div class="board__side">
-        <span class="board__big ltr">{t.results.big.value}</span>
-        <span class="board__label">{t.results.big.label}</span>
+        <span class="board__big ltr">{c.results.big.value}</span>
+        <span class="board__label">{c.results.big.label}</span>
         <span class="board__by ltr">fit20 Qatar</span>
       </div>
     </div>
@@ -131,11 +157,11 @@ const p = t.plan.frag
     <div class="cal glass" aria-hidden="true">
       <div class="cal__head">
         <div>
-          <b>{t.outcomes.card.title}</b>
-          <span class="cal__tag">{t.outcomes.card.tag}</span>
+          <b>{c.outcomes.card.title}</b>
+          <span class="cal__tag">{c.outcomes.card.tag}</span>
         </div>
       </div>
-      {t.outcomes.card.rows.map((r, i) => (
+      {c.outcomes.card.rows.map((r, i) => (
         <div class={`cal__row ${i === 0 ? 'is-first' : ''}`}>
           <span class="cal__when"><b>{r.day}</b> {r.time}</span>
           <span class="cal__name">{r.name}</span>
@@ -144,14 +170,14 @@ const p = t.plan.frag
       ))}
     </div>
     <div class="get__copy">
-      <h2 class="h2">{t.outcomes.titleA}<br />{t.outcomes.titleB}</h2>
-      <p class="lede">{t.outcomes.sub}</p>
+      <h2 class="h2">{c.outcomes.titleA}<br />{c.outcomes.titleB}</h2>
+      <p class="lede">{c.outcomes.sub}</p>
       <ol class="get__list">
-        {t.outcomes.items.map((x, i) => (
+        {c.outcomes.items.map((x, i) => (
           <li><span>{`0${i + 1}`}</span>{x}</li>
         ))}
       </ol>
-      <a href={start} class="btn">{t.outcomes.cta}</a>
+      <a href={start} class="btn">{c.outcomes.cta}</a>
     </div>
   </div>
 </section>
@@ -168,10 +194,10 @@ const p = t.plan.frag
           <rect x="-2.3" y="-11" width="4.6" height="22" rx="2.3" transform="rotate(135)" />
         </g>
       </svg>
-      <h2 class="h2">{t.final.title}</h2>
-      <p class="lede">{t.final.sub}</p>
-      <a href={start} class="btn">{t.final.cta}</a>
-      <p class="closing__small">{t.final.small}</p>
+      <h2 class="h2">{c.final.title}</h2>
+      <p class="lede">{c.final.sub}</p>
+      <a href={start} class="btn">{c.final.cta}</a>
+      <p class="closing__small">{c.final.small}</p>
       <svg class="closing__wave" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
         <path d="M0 150 C 220 70, 420 70, 620 120 S 1000 190, 1200 90" />
       </svg>
@@ -186,7 +212,7 @@ const p = t.plan.frag
     text-align: center;
   }
   .hero__title {
-    font-size: clamp(42px, 6.2vw, 92px);
+    font-size: clamp(40px, 5.5vw, 80px);
     line-height: 0.98;
     letter-spacing: -0.05em;
   }
@@ -295,6 +321,68 @@ const p = t.plan.frag
   }
   .fact cite a {
     color: rgba(30, 28, 33, 0.6);
+  }
+
+  /* Who we help: one card per kind of business */
+  .segs {
+    padding: clamp(40px, 6vh, 80px) 0 clamp(60px, 9vh, 110px);
+  }
+  .segs__sub {
+    max-width: 48ch;
+    margin-top: 18px;
+  }
+  .segs__grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+    margin-top: 44px;
+  }
+  .seg {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 28px;
+    border-radius: var(--r-m);
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .seg:nth-child(n + 4) {
+    grid-column: span 3;
+  }
+  .seg h3 {
+    font-size: 22px;
+    letter-spacing: -0.025em;
+  }
+  .seg p {
+    color: var(--ink-2);
+    font-size: 16px;
+  }
+  .seg--link {
+    background-color: var(--charcoal);
+    background-image: var(--grain-color);
+    color: #fff;
+    transition: transform 0.25s var(--spring);
+  }
+  .seg--link:hover {
+    transform: translateY(-3px);
+  }
+  .seg--link h3 {
+    color: #fff;
+  }
+  .seg--link p {
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .seg__more {
+    margin-top: auto;
+    padding-top: 8px;
+    color: var(--lime);
+    font-weight: 600;
+    font-size: 15px;
+  }
+  :global(:root[dir='rtl']) .seg__more span {
+    display: inline-block;
+    transform: scaleX(-1);
   }
 
   /* Plan: intro on the left, the steps in one glass card */
@@ -678,6 +766,10 @@ const p = t.plan.frag
   }
 
   @media (max-width: 980px) {
+    .seg,
+    .seg:nth-child(n + 4) {
+      grid-column: span 3;
+    }
     .problem__title,
     .problem__copy {
       grid-column: 1 / -1;
@@ -693,6 +785,10 @@ const p = t.plan.frag
     }
   }
   @media (max-width: 640px) {
+    .seg,
+    .seg:nth-child(n + 4) {
+      grid-column: 1 / -1;
+    }
     .hero {
       padding-top: 120px;
     }

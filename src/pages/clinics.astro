@@ -1,0 +1,9 @@
+---
+// Segment landing page: clinics in Doha that run ads.
+import Base from '../layouts/Base.astro'
+import Home from '../components/Home.astro'
+import { en as t } from '../i18n/en'
+---
+<Base t={t} enPath="/clinics" title={t.meta.clinicsTitle} description={t.meta.clinicsDescription}>
+  <Home t={t} c={t.clinics} />
+</Base>
