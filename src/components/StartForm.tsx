@@ -56,6 +56,11 @@ export default function StartForm({ t }: { t: Dict }) {
     setTouched(true)
     if (!contactOk || state === 'sending') return
     setState('sending')
+    // Preview builds (hosted for review) don't send anything
+    if (import.meta.env.PUBLIC_PREVIEW === '1') {
+      window.setTimeout(() => setState('done'), 500)
+      return
+    }
     const label = (k: Key) => picks[k].map((i) => en.start.questions[k].options[i])
     try {
       const res = await fetch('/api/lead', {
@@ -97,6 +102,7 @@ export default function StartForm({ t }: { t: Dict }) {
         <h2 className="sf__q">{s.doneTitle}</h2>
         <p className="sf__p">{s.doneBody}</p>
         {noAds && <p className="sf__p sf__muted">{s.doneNoAds}</p>}
+        {import.meta.env.PUBLIC_PREVIEW === '1' && <p className="sf__p sf__muted">Preview only: nothing was sent.</p>}
         <a className="btn btn--ghost sf__home" href={home}>{s.home}</a>
       </div>
     )

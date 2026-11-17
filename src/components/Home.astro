@@ -5,6 +5,7 @@ interface Props { t: Dict }
 const { t } = Astro.props
 const start = t.lang === 'ar' ? '/ar/start' : '/start'
 ---
+<!-- 1. The hero (your customer) and what they want -->
 <section class="hero">
   <div class="hero__glow" aria-hidden="true"></div>
   <div class="wrap hero__in">
@@ -14,7 +15,7 @@ const start = t.lang === 'ar' ? '/ar/start' : '/start'
       <p class="lead">{t.hero.sub}</p>
       <div class="hero__ctas">
         <a href={start} class="btn">{t.hero.cta} <span class="arrow" aria-hidden="true">→</span></a>
-        <a href="#results" class="btn btn--ghost">{t.hero.secondary}</a>
+        <a href="#how" class="btn btn--ghost">{t.hero.secondary}</a>
       </div>
       <p class="hero__note">{t.hero.note}</p>
     </div>
@@ -24,6 +25,7 @@ const start = t.lang === 'ar' ? '/ar/start' : '/start'
   </div>
 </section>
 
+<!-- 2. The obstacle: external, internal, philosophical -->
 <section class="section problem" id="problem">
   <div class="wrap">
     <p class="label">{t.problem.label}</p>
@@ -39,27 +41,35 @@ const start = t.lang === 'ar' ? '/ar/start' : '/start'
         </li>
       ))}
     </ol>
-    <p class="callout">{t.problem.callout}</p>
-  </div>
-</section>
-
-<section class="section how" id="how">
-  <div class="wrap">
-    <p class="label">{t.how.label}</p>
-    <h2>{t.how.title}</h2>
-    <p class="lead">{t.how.sub}</p>
-    <div class="how__grid">
-      {t.how.steps.map((s) => (
-        <article class="how__card">
-          <span class="how__n">{s.n}</span>
-          <h3>{s.title}</h3>
-          <p>{s.body}</p>
-        </article>
-      ))}
+    <div class="problem__feel">
+      <p class="problem__internal">{t.problem.feel}</p>
+      <p class="problem__belief">{t.problem.belief}</p>
     </div>
   </div>
 </section>
 
+<!-- 3. The guide: empathy -->
+<section class="section diff">
+  <div class="wrap">
+    <p class="label label--light">{t.guide.label}</p>
+    <h2>{t.guide.title}</h2>
+    <p class="lead diff__lead">{t.guide.body}</p>
+    <div class="diff__row">
+      <div class="diff__box">
+        <span class="diff__label">{t.guide.left.label}</span>
+        <p>{t.guide.left.body}</p>
+      </div>
+      <span class="diff__arrow" aria-hidden="true">→</span>
+      <div class="diff__box diff__box--us">
+        <span class="diff__label ltr">{t.guide.right.label}</span>
+        <p>{t.guide.right.body}</p>
+      </div>
+    </div>
+    <p class="diff__partner">{t.guide.partner}</p>
+  </div>
+</section>
+
+<!-- 3b. The guide: proof -->
 <section class="section results" id="results">
   <div class="wrap">
     <div class="results__card">
@@ -91,6 +101,41 @@ const start = t.lang === 'ar' ? '/ar/start' : '/start'
   </div>
 </section>
 
+<!-- 4. The plan + 5. the call to action -->
+<section class="section how" id="how">
+  <div class="wrap">
+    <p class="label">{t.plan.label}</p>
+    <h2>{t.plan.title}</h2>
+    <div class="how__grid">
+      {t.plan.steps.map((s) => (
+        <article class="how__card">
+          <span class="how__n">{s.n}</span>
+          <h3>{s.title}</h3>
+          <p>{s.body}</p>
+        </article>
+      ))}
+    </div>
+    <a href={start} class="btn how__cta">{t.plan.cta} <span class="arrow" aria-hidden="true">→</span></a>
+  </div>
+</section>
+
+<!-- 6. What's at stake, and 7. what success looks like -->
+<section class="section stakes">
+  <div class="wrap">
+    <p class="label">{t.stakes.label}</p>
+    <div class="stakes__grid">
+      <div class="stakes__col stakes__col--fail">
+        <h3>{t.stakes.fail.title}</h3>
+        <ul>{t.stakes.fail.items.map((x) => <li>{x}</li>)}</ul>
+      </div>
+      <div class="stakes__col stakes__col--win">
+        <h3>{t.stakes.success.title}</h3>
+        <ul>{t.stakes.success.items.map((x) => <li>{x}</li>)}</ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section services" id="services">
   <div class="wrap">
     <p class="label">{t.services.label}</p>
@@ -106,24 +151,6 @@ const start = t.lang === 'ar' ? '/ar/start' : '/start'
       ))}
     </div>
     <p class="services__note">{t.services.note}</p>
-  </div>
-</section>
-
-<section class="section diff">
-  <div class="wrap">
-    <h2>{t.diff.title}</h2>
-    <div class="diff__row">
-      <div class="diff__box">
-        <span class="diff__label">{t.diff.left.label}</span>
-        <p>{t.diff.left.body}</p>
-      </div>
-      <span class="diff__arrow" aria-hidden="true">→</span>
-      <div class="diff__box diff__box--us">
-        <span class="diff__label ltr">{t.diff.right.label}</span>
-        <p>{t.diff.right.body}</p>
-      </div>
-    </div>
-    <p class="diff__partner">{t.diff.partner}</p>
   </div>
 </section>
 
@@ -165,6 +192,111 @@ const start = t.lang === 'ar' ? '/ar/start' : '/start'
     <a href={start} class="btn btn--light">{t.final.cta} <span class="arrow" aria-hidden="true">→</span></a>
   </div>
 </section>
+
+<style>
+  /* Problem: how it feels, and what's fair */
+  .problem__feel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .problem__internal,
+  .problem__belief {
+    padding: 22px 24px;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .problem__internal {
+    background: #fff;
+    box-shadow: inset 0 0 0 1px var(--line);
+    color: var(--ink-2);
+  }
+  .problem__belief {
+    border-inline-start: 4px solid var(--blue);
+    border-radius: 6px;
+    background: var(--tint);
+  }
+  .label--light {
+    color: var(--lime);
+  }
+  .label--light::before {
+    background: var(--lime);
+  }
+  .diff__lead {
+    color: rgba(255, 255, 255, 0.78);
+  }
+  .how__cta {
+    margin-top: 32px;
+  }
+  /* Stakes */
+  .stakes__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .stakes__col {
+    padding: 36px 32px;
+    border-radius: var(--radius);
+  }
+  .stakes__col h3 {
+    font-size: 28px;
+    letter-spacing: -0.02em;
+  }
+  .stakes__col ul {
+    display: grid;
+    gap: 14px;
+    margin: 24px 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 18px;
+  }
+  .stakes__col li {
+    position: relative;
+    padding-inline-start: 34px;
+  }
+  .stakes__col li::before {
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0.1em;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .stakes__col--fail {
+    background: #fff;
+    box-shadow: inset 0 0 0 1px var(--line);
+    color: var(--ink-2);
+  }
+  .stakes__col--fail li::before {
+    content: '×';
+    background: #ffe3e0;
+    color: #d93036;
+  }
+  .stakes__col--win {
+    background: var(--charcoal);
+    color: rgba(255, 255, 255, 0.86);
+  }
+  .stakes__col--win h3 {
+    color: #fff;
+  }
+  .stakes__col--win li::before {
+    content: '✓';
+    background: var(--lime);
+    color: var(--charcoal);
+  }
+  @media (max-width: 800px) {
+    .problem__feel,
+    .stakes__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
 
 <style>
   /* Hero */
