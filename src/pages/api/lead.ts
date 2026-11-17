@@ -12,10 +12,15 @@ export const prerender = false
 const DEFAULT_DB = '2b3089ce89584a009590c0bdd5ee4d4e'
 
 const CATEGORY: Record<string, string> = {
+  'Aesthetic or dermatology clinic': 'Clinic',
+  'Dental clinic': 'Clinic',
+  'Other medical clinic': 'Medical clinic',
   'Gym or fitness studio': 'Gym',
-  'Clinic (aesthetic, dental or medical)': 'Clinic',
   'Salon or spa': 'Salon',
 }
+
+// The target is mid-to-high budget clinics. Leads under this are flagged for the setter.
+const LOW_BUDGET = 'Under QAR 15,000'
 
 const clip = (v: unknown, n = 200) => (typeof v === 'string' ? v.trim().slice(0, n) : '')
 const list = (v: unknown) => (Array.isArray(v) ? v.map((x) => clip(x, 80)).filter(Boolean).slice(0, 10) : [])
@@ -55,7 +60,7 @@ export const POST: APIRoute = async ({ request }) => {
     `Contact name: ${name}`,
     `Running ads: ${clip(body.ads, 60) || '-'}`,
     `Business type: ${type || '-'}`,
-    `Monthly ad spend: ${clip(body.spend, 60) || '-'}`,
+    `Monthly ad spend: ${clip(body.spend, 60) || '-'}${clip(body.spend, 60) === LOW_BUDGET ? ' (below target budget)' : ''}`,
     `After the click they go to: ${list(body.where).join(', ') || '-'}`,
     `Biggest problem: ${list(body.problem).join(', ') || '-'}`,
     `Best time to call: ${clip(body.time, 30) || '-'}`,

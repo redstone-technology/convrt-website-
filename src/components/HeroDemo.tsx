@@ -100,10 +100,10 @@ export default function ConvrtHero() {
                   </div>
                 </div>
               </div>
-              <Bubble from="them">Hi! Saw your ad. How much is the membership?</Bubble>
+              <Bubble from="them">Hi! Saw your ad. How much is a skin consultation?</Bubble>
               {s.reply && (
                 <Bubble from="me" typing={s.replyTyping}>
-                  Hi Sara! Want to try a free session first? Tue or Thu?
+                  Hi Sara! Happy to help. Want to book one? Tue or Thu?
                 </Bubble>
               )}
               {s.answer && (

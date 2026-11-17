@@ -10,6 +10,7 @@ const blog = t.lang === 'ar' ? '/ar/blog' : '/blog'
     <div class="footer__brand">
       <Logo size={22} />
       <p>{t.footer.about}</p>
+      <p class="footer__legal">{t.footer.legal}</p>
     </div>
     <nav class="footer__links" aria-label="Footer">
       <a href={blog}>{t.footer.blog}</a>
@@ -36,6 +37,9 @@ const blog = t.lang === 'ar' ? '/ar/blog' : '/blog'
     margin-top: 12px;
     color: var(--ink-3);
     font-size: 14px;
+  }
+  .footer__brand .footer__legal {
+    margin-top: 4px;
   }
   .footer__links {
     display: flex;
