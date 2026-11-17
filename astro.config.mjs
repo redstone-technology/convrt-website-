@@ -6,6 +6,7 @@ import vercel from '@astrojs/vercel'
 export default defineConfig({
   site: 'https://convrt.qa',
   trailingSlash: 'never',
+  devToolbar: { enabled: false },
   output: 'static',
   adapter: vercel(),
   integrations: [
