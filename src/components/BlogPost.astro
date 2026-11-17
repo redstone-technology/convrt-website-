@@ -1,0 +1,51 @@
+---
+import { render, type CollectionEntry } from 'astro:content'
+import Base from '../layouts/Base.astro'
+import type { Dict } from '../i18n/en'
+interface Props { t: Dict; post: CollectionEntry<'blog'> }
+const { t, post } = Astro.props
+const slug = post.id.split('/')[1]
+const { Content } = await render(post)
+const prefix = t.lang === 'ar' ? '/ar' : ''
+const fmt = new Intl.DateTimeFormat(t.lang === 'ar' ? 'ar-QA' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  inLanguage: t.lang,
+  author: { '@type': 'Organization', name: 'Convrt' },
+  publisher: { '@type': 'Organization', name: 'Convrt' },
+  mainEntityOfPage: `https://convrt.qa${prefix}/blog/${slug}`,
+}
+---
+<Base t={t} enPath={`/blog/${slug}`} title={`${post.data.title} | Convrt`} description={post.data.description} jsonLd={ld}>
+  <article class="post wrap">
+    <a href={`${prefix}/blog`} class="post__back">{t.blog.back}</a>
+    <time datetime={post.data.date.toISOString()}>{fmt.format(post.data.date)}</time>
+    <h1>{post.data.title}</h1>
+    <p class="lead">{post.data.description}</p>
+    <div class="post__body"><Content /></div>
+    <aside class="post__cta">
+      <h2>{t.blog.ctaTitle}</h2>
+      <p>{t.blog.ctaBody}</p>
+      <a class="btn" href={`${prefix}/start`}>{t.nav.cta} <span class="arrow" aria-hidden="true">→</span></a>
+    </aside>
+  </article>
+</Base>
+<style>
+  .post { max-width: 760px; padding: 64px 0 112px; }
+  .post__back { display: inline-block; margin-bottom: 32px; color: var(--blue); font-weight: 600; text-decoration: none; }
+  .post time { display: block; margin-bottom: 12px; color: var(--ink-3); font-size: 14px; }
+  .post h1 { font-size: clamp(36px, 4.6vw, 54px); }
+  .post__body { margin-top: 40px; font-size: 18px; color: var(--ink-2); }
+  .post__body :global(h2) { margin: 44px 0 12px; font-size: 28px; letter-spacing: -0.02em; line-height: 1.2; }
+  .post__body :global(p) { margin: 0 0 18px; }
+  .post__body :global(ul), .post__body :global(ol) { margin: 0 0 18px; padding-inline-start: 22px; }
+  .post__body :global(li) { margin-bottom: 8px; }
+  .post__body :global(strong) { color: var(--ink); }
+  .post__cta { margin-top: 56px; padding: 36px; border-radius: 24px; background: var(--tint); }
+  .post__cta h2 { font-size: 28px; letter-spacing: -0.02em; line-height: 1.2; }
+  .post__cta p { margin: 10px 0 22px; color: var(--ink-2); }
+</style>

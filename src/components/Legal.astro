@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro'
+import { en } from '../i18n/en'
+interface Props { title: string; updated: string; enPath: string }
+const { title, updated, enPath } = Astro.props
+---
+<Base t={en} enPath={enPath} hasAlt={false} title={`${title} | Convrt`} description={`${title} for Convrt (convrt.qa and app.convrt.qa).`}>
+  <article class="legal wrap">
+    <h1>{title}</h1>
+    <p class="legal__date">Last updated: {updated}</p>
+    <div class="legal__body"><slot /></div>
+  </article>
+</Base>
+<style>
+  .legal { max-width: 780px; padding: 64px 0 112px; }
+  .legal h1 { font-size: clamp(36px, 4.6vw, 52px); }
+  .legal__date { margin-top: 12px; color: var(--ink-3); font-size: 14px; }
+  .legal__body { margin-top: 36px; color: var(--ink-2); }
+  .legal__body :global(h2) { margin: 40px 0 12px; font-size: 24px; letter-spacing: -0.015em; line-height: 1.25; }
+  .legal__body :global(p) { margin: 0 0 14px; }
+  .legal__body :global(ul) { margin: 0 0 14px; padding-inline-start: 22px; }
+  .legal__body :global(li) { margin-bottom: 6px; }
+</style>

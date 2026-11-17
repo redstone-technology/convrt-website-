@@ -1,0 +1,58 @@
+---
+import Logo from './Logo.astro'
+import type { Dict } from '../i18n/en'
+interface Props { t: Dict }
+const { t } = Astro.props
+const blog = t.lang === 'ar' ? '/ar/blog' : '/blog'
+---
+<footer class="footer">
+  <div class="wrap footer__in">
+    <div class="footer__brand">
+      <Logo size={22} />
+      <p>{t.footer.about}</p>
+    </div>
+    <nav class="footer__links" aria-label="Footer">
+      <a href={blog}>{t.footer.blog}</a>
+      <a href="/privacy">{t.footer.privacy}</a>
+      <a href="/terms">{t.footer.terms}</a>
+      <a href={`mailto:${t.footer.contact}`} class="ltr">{t.footer.contact}</a>
+    </nav>
+  </div>
+  <div class="wrap footer__copy">© {new Date().getFullYear()} Convrt</div>
+</footer>
+<style>
+  .footer {
+    padding: 56px 0 40px;
+    border-top: 1px solid var(--line);
+    background: var(--warm);
+  }
+  .footer__in {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .footer__brand p {
+    margin-top: 12px;
+    color: var(--ink-3);
+    font-size: 14px;
+  }
+  .footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    font-size: 15px;
+  }
+  .footer__links a {
+    color: var(--ink-2);
+    text-decoration: none;
+  }
+  .footer__links a:hover {
+    color: var(--ink);
+  }
+  .footer__copy {
+    margin-top: 32px;
+    color: var(--ink-3);
+    font-size: 13px;
+  }
+</style>

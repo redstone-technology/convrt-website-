@@ -1,0 +1,321 @@
+---
+import Base from '../layouts/Base.astro'
+import Logo from './Logo.astro'
+import StartForm from './StartForm.tsx'
+import type { Dict } from '../i18n/en'
+interface Props { t: Dict }
+const { t } = Astro.props
+const home = t.lang === 'ar' ? '/ar' : '/'
+const altHref = t.lang === 'ar' ? '/start' : '/ar/start'
+---
+<Base t={t} enPath="/start" title={t.start.metaTitle} description={t.start.sub} nav={false}>
+  <div class="start">
+    <div class="start__glow" aria-hidden="true"></div>
+    <header class="start__head wrap">
+      <a href={home} aria-label="Convrt home"><Logo size={24} /></a>
+      <a href={altHref} class="start__lang" lang={t.lang === 'ar' ? 'en' : 'ar'}>{t.nav.switch}</a>
+    </header>
+    <div class="start__body wrap">
+      <div class="start__intro">
+        <h1>{t.start.title}</h1>
+        <p class="lead">{t.start.sub}</p>
+      </div>
+      <div class="start__card">
+        <StartForm client:load t={t} />
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .start {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    padding-bottom: 80px;
+  }
+  .start__glow {
+    position: absolute;
+    inset: -30% -10% auto;
+    height: 800px;
+    background:
+      radial-gradient(45% 50% at 80% 30%, rgba(11, 118, 245, 0.2), transparent 70%),
+      radial-gradient(40% 40% at 10% 10%, rgba(11, 118, 245, 0.1), transparent 70%);
+    pointer-events: none;
+  }
+  .start__head {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+  .start__head a {
+    text-decoration: none;
+  }
+  .start__lang {
+    color: var(--ink-2);
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .start__body {
+    position: relative;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 56px;
+    align-items: start;
+    padding-top: 56px;
+  }
+  .start__intro h1 {
+    font-size: clamp(36px, 4.2vw, 56px);
+  }
+  .start__card {
+    padding: 36px;
+    border-radius: 28px;
+    background: #fff;
+    box-shadow: 0 1px 0 var(--line), 0 40px 80px -40px rgba(30, 28, 33, 0.3);
+  }
+  @media (max-width: 900px) {
+    .start__body {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      padding-top: 24px;
+    }
+    .start__card {
+      padding: 24px 20px;
+      border-radius: 22px;
+    }
+  }
+</style>
+
+<style is:global>
+  .sf__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 24px;
+  }
+  .sf__count {
+    color: var(--ink-3);
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .sf__back {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--blue);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .sf__bar {
+    height: 6px;
+    margin: 12px 0 28px;
+    overflow: hidden;
+    border-radius: 99px;
+    background: var(--tint);
+  }
+  .sf__bar span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--blue);
+    transition: width 0.35s ease;
+  }
+  .sf__set {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    animation: sf-in 0.3s ease both;
+  }
+  @keyframes sf-in {
+    from { opacity: 0; transform: translateY(8px); }
+  }
+  .sf__q {
+    padding: 0;
+    font-family: var(--display);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  :root[lang='ar'] .sf__q {
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+  .sf__hint {
+    margin: 6px 0 20px;
+    color: var(--ink-3);
+    font-size: 14px;
+  }
+  .sf__options {
+    display: grid;
+    gap: 10px;
+  }
+  .sf__opt {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 56px;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 14px;
+    background: var(--warm);
+    color: var(--ink);
+    font: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: start;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1.5px transparent;
+    transition: background 0.15s ease, box-shadow 0.15s ease;
+  }
+  .sf__opt:hover {
+    background: #ecebe8;
+  }
+  .sf__opt[data-on] {
+    background: var(--tint);
+    box-shadow: inset 0 0 0 1.5px var(--blue);
+  }
+  .sf__tick {
+    position: relative;
+    flex: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: inset 0 0 0 1.5px rgba(30, 28, 33, 0.25);
+  }
+  .sf__tick[data-multi] {
+    border-radius: 6px;
+  }
+  .sf__opt[data-on] .sf__tick {
+    background: var(--blue);
+    box-shadow: none;
+  }
+  .sf__opt[data-on] .sf__tick::after {
+    content: '';
+    position: absolute;
+    inset: 5px 4px 6px 5px;
+    border: solid #fff;
+    border-width: 0 0 2px 2px;
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+  .sf__next {
+    width: 100%;
+    margin-top: 24px;
+  }
+  .sf__next:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  .sf__fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 22px;
+  }
+  .sf__field {
+    display: grid;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .sf__field input {
+    height: 50px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--warm);
+    color: var(--ink);
+    font: inherit;
+    font-size: 16px;
+    box-shadow: inset 0 0 0 1.5px transparent;
+  }
+  .sf__field input:focus {
+    outline: none;
+    background: #fff;
+    box-shadow: inset 0 0 0 1.5px var(--blue);
+  }
+  .sf__field input[aria-invalid='true'] {
+    box-shadow: inset 0 0 0 1.5px #e5484d;
+  }
+  .sf__field em {
+    color: #d93036;
+    font-size: 13px;
+    font-style: normal;
+  }
+  .sf__time {
+    display: grid;
+    gap: 8px;
+    margin-top: 18px;
+    color: var(--ink-2);
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .sf__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .sf__chip {
+    padding: 10px 16px;
+    border: 0;
+    border-radius: 99px;
+    background: var(--warm);
+    color: var(--ink);
+    font: inherit;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .sf__chip[data-on] {
+    background: var(--blue);
+    color: #fff;
+  }
+  .sf__error {
+    margin-top: 14px;
+    color: #d93036;
+    font-size: 14px;
+  }
+  .sf__fine {
+    margin-top: 14px;
+    color: var(--ink-3);
+    font-size: 13px;
+  }
+  .sf--done {
+    text-align: center;
+  }
+  .sf__check {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    margin: 8px auto 20px;
+    border-radius: 50%;
+    background: var(--lime);
+    color: var(--charcoal);
+  }
+  .sf__p {
+    margin-top: 10px;
+    color: var(--ink-2);
+  }
+  .sf__muted {
+    color: var(--ink-3);
+    font-size: 15px;
+  }
+  .sf__home {
+    margin-top: 28px;
+  }
+  @media (max-width: 560px) {
+    .sf__fields {
+      grid-template-columns: 1fr;
+    }
+    .sf__q {
+      font-size: 23px;
+    }
+  }
+</style>

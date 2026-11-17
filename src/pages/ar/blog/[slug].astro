@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content'
+import BlogPost from '../../../components/BlogPost.astro'
+import { ar } from '../../../i18n/ar'
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', (p) => p.id.startsWith('ar/'))
+  return posts.map((post) => ({ params: { slug: post.id.split('/')[1] }, props: { post } }))
+}
+const { post } = Astro.props
+---
+<BlogPost t={ar} post={post} />

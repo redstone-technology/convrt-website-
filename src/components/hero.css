@@ -1,0 +1,217 @@
+/* Convrt's look: Convrt Blue as the accent, charcoal text, IBM Plex Sans. */
+.cvh {
+  & .ss-stage {
+    --gutter: 32px;
+    --ss-accent: #0b76f5;
+    --ss-accent-soft: #eaf2fe;
+    --ss-accent-text: #0a5fc4;
+    --ss-text-strong: #1e1c21;
+    --ss-font: 'IBM Plex Sans', system-ui, sans-serif;
+    overflow: hidden;
+    background: transparent;
+  }
+
+  /* Corner bleed: pinned top-left, runs off the bottom. The phone straddles
+     its right edge over the detail pane, which is filler. */
+  .cvh-window {
+    position: absolute;
+    top: var(--gutter);
+    left: var(--gutter);
+    width: 470px;
+    height: 470px;
+    background: var(--ss-surface);
+    box-shadow: var(--ss-shadow-hero);
+  }
+
+  .cvh-window .ss-window__body {
+    display: flex;
+    background: var(--ss-surface);
+  }
+
+  .cvh-list {
+    flex: none;
+    width: 296px;
+    padding: 14px 10px;
+    border-right: 1px solid var(--ss-line);
+  }
+
+  .cvh-head {
+    padding: 2px 12px 10px;
+  }
+
+  .cvh-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ss-text);
+  }
+
+  .cvh-row {
+    border-radius: 8px;
+  }
+
+  .cvh-row[data-selected] {
+    background: var(--ss-accent-soft);
+  }
+
+  .cvh-sub {
+    font-size: 12px;
+    color: var(--ss-text-faint);
+  }
+
+  .cvh-badge {
+    flex: none;
+  }
+
+  .cvh-detail {
+    display: grid;
+    align-content: start;
+    gap: 10px;
+    padding: 22px 20px;
+  }
+
+  /* A close crop of the conversation: the phone's top runs off the stage,
+     its composer and bottom edge stay in view. */
+  .cvh-phone {
+    position: absolute;
+    bottom: var(--gutter);
+    right: var(--gutter);
+    box-shadow: var(--ss-shadow-satellite), 0 30px 50px -20px rgba(30, 28, 33, 0.3);
+  }
+
+  .cvh-phone .ss-phone__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cvh-compose {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 14px 36px;
+  }
+
+  .cvh-plus {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #e9e9eb;
+    color: #3c3c43;
+  }
+
+  .cvh-field {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    min-height: 36px;
+    padding: 0 14px;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: inset 0 0 0 1px #d1d1d6;
+    font-size: 17px;
+    color: #b0b0b5;
+  }
+
+  .cvh-thread {
+    flex: 1;
+    padding: 0 14px 18px;
+  }
+
+  .cvh-app {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: #0b76f5;
+    color: #fff;
+  }
+
+  .cvh-banner {
+    will-change: transform;
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 2;
+    opacity: 0;
+    translate: 0 -24px;
+    transition: opacity 0.3s ease, translate 0.45s cubic-bezier(0.3, 0.75, 0.1, 1);
+  }
+
+  .cvh-banner[data-show] {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  & .ss-stage[data-layout='compact'] {
+    --gutter: 16px;
+  }
+
+  & .ss-stage[data-layout='compact'] .cvh-phone {
+    right: auto;
+    left: 16px;
+    bottom: 16px;
+  }
+}
+
+.cvh {
+  /* Glides with the thread like a bubble row does */
+  .cvh-adref {
+    position: relative;
+    top: 0;
+    flex: none;
+    will-change: transform;
+    transition: top var(--ss-scroll);
+    display: grid;
+    justify-items: start;
+    gap: 4px;
+    margin: 4px 0 6px;
+  }
+
+  .cvh-adref__label {
+    font-size: 14px;
+    color: #8e8e93;
+    padding-left: 4px;
+  }
+
+  .cvh-adref__card {
+    width: 168px;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #e9e9eb;
+  }
+
+  .cvh-adref__img {
+    height: 96px;
+    background:
+      radial-gradient(120% 90% at 20% 10%, #cfe2fd 0%, transparent 60%),
+      radial-gradient(90% 80% at 90% 100%, #0b76f5 0%, transparent 70%),
+      #eaf2fe;
+  }
+
+  .cvh-adref__meta {
+    display: grid;
+    gap: 7px;
+    padding: 10px 12px 12px;
+  }
+}
+
+/* Status pills in Convrt's colors: blue for new, lime for booked */
+.cvh {
+  .cvh-badge[data-tone='accent'] {
+    background: #0b76f5;
+    color: #fff;
+  }
+
+  .cvh-badge[data-tone='success'] {
+    background: #d2f03f;
+    color: #1e1c21;
+  }
+
+  .cvh-badge[data-tone='neutral'] {
+    background: #fff;
+    color: var(--ss-text);
+    box-shadow: inset 0 0 0 1px var(--ss-line);
+  }
+}
