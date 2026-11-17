@@ -14,6 +14,7 @@ export const en = {
   nav: {
     how: 'How it works',
     results: 'Results',
+    problem: 'The problem',
     blog: 'Blog',
     cta: "See if we're a fit",
     switch: 'عربي',
@@ -21,63 +22,80 @@ export const en = {
   },
   // One reader: owners/managers of premium aesthetic, dermatology and dental
   // clinics in Doha that run ads every month. One job: start the /start form.
-  // Story order: their goal, the problem, Convrt as guide with proof, the plan,
-  // what they get, the call to action. Short words, one idea per section.
+  // Story order: their goal, the problem, the plan, proof, what they get, CTA.
+  // Layout follows leadish.app (same design system), in Convrt's colours.
   hero: {
-    eyebrow: 'For clinics in Doha that run ads',
-    title: 'Turn more ad inquiries into booked consultations.',
-    sub: 'We reply fast, follow up and book them for you.',
+    titleA: 'Your ads bring patients.',
+    titleB: 'We make sure they book.',
+    sub: 'Convrt replies fast, follows up and books your ad inquiries. Same ad budget, more booked consultations.',
     cta: "See if we're a fit",
-    proof: { value: '60%+', label: 'of leads booked in 30 days at fit20 Qatar', link: 'See how' },
+    note: 'For clinics in Doha · Takes 2 minutes · We call you back',
   },
   problem: {
-    label: 'The problem',
-    title: 'Patients ask. Then they disappear.',
-    items: ['Replies come too late.', 'Nobody follows up.', "Booked patients don't show up."],
-    line: 'Each one already cost you ad money.',
-  },
-  results: {
-    label: 'Proof',
-    title: 'It worked for fit20 Qatar.',
-    body: 'A booking business like yours. Same ads, no extra leads. We fixed what happened after people asked.',
-    stats: [
-      { value: '60%+', label: 'of leads booked' },
-      { value: '~0%', label: 'before' },
-      { value: '10x+', label: 'sales vs. ad spend' },
-    ],
-    time: 'Their team also got a lot of time back.',
-    note: 'First 30 days. 60%+ counts bookings. 10x+ compares new sales with ad spend in the same period.',
+    titleA: 'Patients ask.',
+    titleB: 'Then they disappear.',
+    body: ['Replies come late. Nobody follows up. Booked patients forget to come.', 'Each one already cost you ad money.'],
+    fact: {
+      value: '7x',
+      text: 'more likely to get a real conversation when you reply within the hour, not an hour later.',
+      cite: 'Harvard Business Review, 2011',
+      href: 'https://hbr.org/2011/03/the-short-life-of-online-sales-leads',
+    },
   },
   plan: {
-    label: 'How it works',
-    title: 'Three steps.',
+    titleA: 'Three steps.',
+    titleB: 'One system.',
+    sub: 'You keep your ads. We fix what happens after the click.',
     steps: [
-      { n: '1', title: 'Tell us about your clinic', body: '2 minutes. We call you back.' },
-      { n: '2', title: 'We find the leaks', body: 'Where patients drop off between the ad and the visit.' },
-      { n: '3', title: 'We fix them', body: 'Fast replies, follow-up and reminders. Then we keep improving.' },
+      { n: '01', title: 'Tell us about your clinic', body: 'Two minutes. We call you back.' },
+      { n: '02', title: 'We find the leaks', body: 'Where patients drop off, from the ad to the visit.' },
+      { n: '03', title: 'We fix them', body: 'Fast replies, follow-up and reminders. Then we keep improving.' },
     ],
-    cta: "See if we're a fit",
+    frag: {
+      clinic: ['Aesthetic clinic', 'Dental clinic', 'Other'],
+      funnel: ['Clicked', 'Messaged', 'Booked', 'Came'],
+      leak: 'Leak',
+      reminder: 'Reminder: your consultation is tomorrow at 6 PM.',
+      booked: 'Booked',
+    },
+  },
+  results: {
+    title: 'It worked for fit20 Qatar.',
+    body: 'A booking business like yours. Same ads, no extra leads. We fixed what happened after people asked.',
+    table: {
+      head: ['First 30 days', 'Before', 'After'],
+      rows: [
+        ['Leads that booked', '~0%', '60%+'],
+        ['New sales vs. ad spend', '–', '10x+'],
+        ['Ad budget', 'Same', 'Same'],
+        ['Time spent replying', 'A lot', 'A lot less'],
+      ],
+    },
+    big: { value: '60%+', label: 'of incoming leads booked in the first 30 days' },
+    note: '60%+ counts bookings. 10x+ compares new sales with ad spend in the same period.',
   },
   outcomes: {
-    label: 'What you get',
-    items: [
-      { title: 'More booked consultations', body: 'From the ads you already run.' },
-      { title: 'Time back for your front desk', body: 'Less chasing, more care for patients in the room.' },
-      { title: 'Clear numbers', body: 'See how many ad clicks become patients.' },
-    ],
-  },
-  faq: {
-    label: 'Questions',
-    title: 'Questions clinics ask',
-    items: [
-      { q: 'Do you run our ads?', a: 'No. Keep your ads and your agency. We work on what happens after the click.' },
-      { q: 'What do you need from us?', a: 'A short call to see how patients book with you today.' },
-      { q: 'What does it cost?', a: 'It depends on your clinic. We tell you on the call.' },
-    ],
+    titleA: 'A full calendar.',
+    titleB: 'A calmer front desk.',
+    sub: 'What clinics get when nothing slips through.',
+    items: ['More booked consultations from the same ads.', 'Time back for your front desk.', 'Clear numbers on every ad click.'],
+    card: {
+      title: 'Consultations this week',
+      tag: 'From your ads',
+      rows: [
+        { day: 'Tue', time: '6:00 PM', name: 'Sara A.', status: 'Booked' },
+        { day: 'Wed', time: '11:30 AM', name: 'Mariam K.', status: 'Booked' },
+        { day: 'Wed', time: '4:00 PM', name: 'Noor H.', status: 'Confirmed' },
+        { day: 'Thu', time: '10:00 AM', name: 'Layla S.', status: 'Reminder sent' },
+      ],
+    },
+    cta: "See if we're a fit",
   },
   final: {
     title: 'Your next patient already clicked your ad.',
+    sub: "Tell us about your clinic. We'll show you where bookings slip away.",
     cta: "See if we're a fit",
+    small: "We don't run ads. Keep your ads and your agency.",
   },
   footer: {
     about: 'Convrt is part of Redstone Technology, Doha, Qatar.',

@@ -59,8 +59,9 @@ const org = {
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body>
+    <div class="grain" aria-hidden="true"></div>
     {nav && <Nav t={t} enPath={enPath} hasAlt={hasAlt} />}
-    <main id="main">
+    <main id="main" class={nav ? 'has-nav' : ''}>
       <slot />
     </main>
     <Footer t={t} />
