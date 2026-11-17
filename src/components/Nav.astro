@@ -19,7 +19,7 @@ const switchHref = hasAlt ? alt : t.nav.switchHref
       <a href={blog}>{t.nav.blog}</a>
     </nav>
     <div class="nav__end">
-      <a href={switchHref} class="nav__lang" hreflang={t.lang === 'ar' ? 'en' : 'ar'} lang={t.lang === 'ar' ? 'en' : 'ar'}>{t.nav.switch}</a>
+      {t.lang === 'ar' && <a href={switchHref} class="nav__lang" hreflang="en" lang="en">{t.nav.switch}</a>}
       <a href={start} class="btn nav__cta">{t.nav.cta}</a>
     </div>
   </div>

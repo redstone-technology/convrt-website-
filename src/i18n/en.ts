@@ -25,11 +25,13 @@ export const en = {
   // a simple plan, a clear call to action, what's at stake, what success looks like.
   hero: {
     eyebrow: 'For businesses already running ads',
-    title: 'Get more customers from the money you already spend on ads.',
-    sub: "You're already paying to get people interested. We help make sure they don't slip away before they book.",
+    title: 'Turn more of your ad clicks into paying customers.',
+    sub: 'You already pay to get people interested. We build the system that answers them fast, follows up and gets them booked, so the same ad budget brings you more customers.',
+    points: ['Every inquiry answered fast', 'Follow-up until they book', "We don't run your ads. We make them pay off."],
     cta: "See if we're a fit",
     secondary: 'How it works',
     note: 'Takes about 2 minutes. Our team calls you back.',
+    proof: { value: '60%+', label: 'of fit20 Qatar\'s leads booked in their first 30 days', link: 'See the result' },
   },
   problem: {
     label: 'Sound familiar?',

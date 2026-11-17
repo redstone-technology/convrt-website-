@@ -13,7 +13,7 @@ const altHref = t.lang === 'ar' ? '/start' : '/ar/start'
     <div class="start__glow" aria-hidden="true"></div>
     <header class="start__head wrap">
       <a href={home} aria-label="Convrt home"><Logo size={24} /></a>
-      <a href={altHref} class="start__lang" lang={t.lang === 'ar' ? 'en' : 'ar'}>{t.nav.switch}</a>
+      {t.lang === 'ar' && <a href={altHref} class="start__lang" lang="en">{t.nav.switch}</a>}
     </header>
     <div class="start__body wrap">
       <div class="start__intro">

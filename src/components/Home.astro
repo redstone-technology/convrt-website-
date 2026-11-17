@@ -12,12 +12,19 @@ const start = t.lang === 'ar' ? '/ar/start' : '/start'
     <div class="hero__copy">
       <p class="label">{t.hero.eyebrow}</p>
       <h1>{t.hero.title}</h1>
-      <p class="lead">{t.hero.sub}</p>
+      <p class="lead hero__sub">{t.hero.sub}</p>
+      <ul class="hero__points">
+        {t.hero.points.map((p) => <li>{p}</li>)}
+      </ul>
       <div class="hero__ctas">
         <a href={start} class="btn">{t.hero.cta} <span class="arrow" aria-hidden="true">→</span></a>
         <a href="#how" class="btn btn--ghost">{t.hero.secondary}</a>
       </div>
       <p class="hero__note">{t.hero.note}</p>
+      <a href="#results" class="proof">
+        <span class="proof__value ltr">{t.hero.proof.value}</span>
+        <span class="proof__text">{t.hero.proof.label} <span class="proof__link">{t.hero.proof.link}</span></span>
+      </a>
     </div>
     <div class="hero__demo" dir="ltr">
       <HeroDemo client:visible />
@@ -303,7 +310,7 @@ const start = t.lang === 'ar' ? '/ar/start' : '/start'
   .hero {
     position: relative;
     overflow: hidden;
-    padding: 72px 0 40px;
+    padding: 40px 0 48px;
   }
   .hero__glow {
     position: absolute;
@@ -323,16 +330,82 @@ const start = t.lang === 'ar' ? '/ar/start' : '/start'
     gap: 40px;
   }
   .hero h1 {
-    font-size: clamp(40px, 4.3vw, 60px);
+    font-size: clamp(36px, 3.9vw, 54px);
+  }
+  .hero .label {
+    margin-bottom: 12px;
+  }
+  .hero__sub {
+    margin-top: 16px;
+    font-size: 18px;
+  }
+  .hero__points {
+    display: grid;
+    gap: 8px;
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+    font-weight: 500;
+  }
+  .hero__points li {
+    position: relative;
+    padding-inline-start: 30px;
+  }
+  .hero__points li::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--lime) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.5 8.6 13.5 14.5 7' fill='none' stroke='%231E1C21' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 20px no-repeat;
+  }
+  .proof {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 22px;
+    padding: 10px 18px 10px 10px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 1px 0 var(--line), 0 14px 30px -22px rgba(30, 28, 33, 0.35);
+    text-decoration: none;
+    max-width: 480px;
+  }
+  :global(:root[dir='rtl']) .proof {
+    padding: 10px 10px 10px 18px;
+  }
+  .proof__value {
+    flex: none;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background: var(--blue);
+    color: #fff;
+    font-family: 'Archivo', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .proof__text {
+    color: var(--ink-2);
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .proof__link {
+    color: var(--blue);
+    font-weight: 600;
+    white-space: nowrap;
   }
   .hero__ctas {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 32px;
+    margin-top: 26px;
   }
   .hero__note {
-    margin-top: 14px;
+    margin-top: 10px;
     color: var(--ink-3);
     font-size: 14px;
   }
