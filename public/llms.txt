@@ -6,6 +6,7 @@
 - Replies to Instagram DMs and comments, Facebook messages and WhatsApp in seconds, in Arabic or English.
 - Qualifies each person (what they want, how serious they are) and moves the chat to a booking.
 - Follows up when people go quiet, until they book or say no.
+- Improves show rate: reminders before the appointment, a quick confirm, and an easy reschedule.
 - Human in the loop: anything it is not sure about goes to the owner. It never guesses.
 - Every lead and conversation is visible to the owner in one dashboard.
 - Works alongside the business's team. It does not replace staff.
@@ -16,7 +17,7 @@
 - Then a monthly fee for software maintenance and support.
 
 ## Who it is for
-Businesses already running paid ads, such as clinics, gyms and fitness studios, real estate, education and training, and car businesses.
+Businesses anywhere that already run paid ads, such as clinics, gyms and fitness studios, real estate, education and training, and car businesses.
 
 ## Result
 - A fitness business in Doha, first 30 days: more than 60% of incoming leads booked (up from effectively 0%), and new sales of more than 10x the ad spend in the same period.

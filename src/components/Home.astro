@@ -105,6 +105,18 @@ const p = c.plan.frag
           <span class="pill-booked">{p.booked}</span>
         </div>
       </li>
+      <li class="move">
+        <span class="move__n">{c.plan.steps[3].n}</span>
+        <div>
+          <h3>{c.plan.steps[3].title}</h3>
+          <p>{c.plan.steps[3].body}</p>
+        </div>
+        <div class="frag" aria-hidden="true">
+          <p class="bubble">{p.showReminder}</p>
+          <p class="bubble bubble--them">{p.showReply}</p>
+          <span class="pill-booked">{p.confirmed}</span>
+        </div>
+      </li>
     </ol>
   </div>
 </section>
@@ -151,7 +163,7 @@ const p = c.plan.frag
         <div class={`cal__row ${i === 0 ? 'is-first' : ''}`}>
           <span class="cal__when"><b>{r.day}</b> {r.time}</span>
           <span class="cal__name">{r.name}</span>
-          <span class={`cal__status ${i < 2 ? 'is-booked' : i === 3 ? 'is-you' : ''}`}>{r.status}</span>
+          <span class={`cal__status ${i < 3 ? 'is-booked' : 'is-you'}`}>{r.status}</span>
         </div>
       ))}
     </div>
@@ -535,6 +547,17 @@ const p = c.plan.frag
     color: #fff;
     font-size: 13px;
     line-height: 1.4;
+  }
+  .frag .bubble--them {
+    align-self: flex-start;
+    padding: 6px 14px;
+    border-radius: 16px 16px 16px 6px;
+    background: #fff;
+    color: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--hair);
+  }
+  :global(:root[dir='rtl']) .bubble--them {
+    border-radius: 16px 16px 6px 16px !important;
   }
   :global(:root[dir='rtl']) .bubble {
     border-radius: 16px 16px 16px 6px;

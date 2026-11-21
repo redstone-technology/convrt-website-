@@ -20,7 +20,7 @@ const CATEGORY: Record<string, string> = {
 }
 
 // The target is mid-to-high budget businesses. Leads under this are flagged for the setter.
-const LOW_BUDGET = 'Under QAR 15,000'
+const LOW_BUDGET = 'Under $5,000'
 
 const clip = (v: unknown, n = 200) => (typeof v === 'string' ? v.trim().slice(0, n) : '')
 const list = (v: unknown) => (Array.isArray(v) ? v.map((x) => clip(x, 80)).filter(Boolean).slice(0, 10) : [])
@@ -63,7 +63,7 @@ export const POST: APIRoute = async ({ request }) => {
     `Monthly ad spend: ${clip(body.spend, 60) || '-'}${clip(body.spend, 60) === LOW_BUDGET ? ' (below target budget)' : ''}`,
     `Customers message on: ${list(body.where).join(', ') || '-'}`,
     `What happens to messages today: ${list(body.problem).join(', ') || '-'}`,
-    `Best time to call: ${clip(body.time, 30) || '-'}`,
+    `Best time to call: ${clip(body.time, 30) || '-'} (their time zone: ${clip(body.tz, 60) || 'unknown'})`,
     `Language: ${clip(body.lang, 5) === 'ar' ? 'Arabic' : 'English'}`,
     utmLine ? `Tracking: ${utmLine}` : '',
   ]

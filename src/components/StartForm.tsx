@@ -80,6 +80,7 @@ export default function StartForm({ t }: { t: Dict }) {
           time: contact.time === null ? '' : en.start.contact.times[contact.time],
           website: contact.website,
           utm,
+          tz: (() => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone } catch { return '' } })(),
         }),
       })
       if (!res.ok) throw new Error(String(res.status))
@@ -166,7 +167,7 @@ export default function StartForm({ t }: { t: Dict }) {
             </label>
             <label className="sf__field">
               <span>{s.contact.phone}</span>
-              <input type="tel" dir="ltr" inputMode="tel" autoComplete="tel" placeholder="+974" value={contact.phone} onChange={(e) => setContact({ ...contact, phone: e.target.value })} aria-invalid={touched && contact.phone.replace(/\D/g, '').length < 7} />
+              <input type="tel" dir="ltr" inputMode="tel" autoComplete="tel" placeholder="+ country code" value={contact.phone} onChange={(e) => setContact({ ...contact, phone: e.target.value })} aria-invalid={touched && contact.phone.replace(/\D/g, '').length < 7} />
               {touched && contact.phone.replace(/\D/g, '').length < 7 && <em>{s.required}</em>}
             </label>
             <label className="sf__field">
