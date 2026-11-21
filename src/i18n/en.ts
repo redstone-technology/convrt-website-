@@ -2,7 +2,7 @@
 // Rules: describe our work as custom software development (setup) and
 // software maintenance and support (monthly). Never call Convrt a "marketing
 // agency", "advertising" or "social media management". Real results only.
-// No prices. fit20 Qatar may be named on the website only, with no riyal amounts.
+// No prices. No client names in results; no riyal amounts.
 
 export const en = {
   lang: 'en',
@@ -65,8 +65,9 @@ export const en = {
       },
     },
     results: {
-      title: 'It worked for fit20 Qatar.',
-      body: 'A fitness program in Doha. Same ads, no extra leads. Every message got a fast reply and a push to book.',
+      title: 'Built and proven in Qatar.',
+      body: 'Real numbers from a fitness business in Doha. Same ads, no extra leads. Every message got a fast reply and a push to book.',
+      by: 'Fitness business, Doha',
       table: {
         head: ['First 30 days', 'Before', 'After'],
         rows: [

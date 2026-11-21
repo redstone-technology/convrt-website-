@@ -2,7 +2,7 @@ import type { Dict } from './en'
 
 // Arabic copy. Same rules as English: one offer (the AI Closer), no
 // "وكالة تسويق", no "إعلانات" as a description of our work, real results only,
-// no prices, no riyal amounts for fit20.
+// no prices, no client names in results, no riyal amounts.
 
 export const ar: Dict = {
   lang: 'ar',
@@ -63,8 +63,9 @@ export const ar: Dict = {
       },
     },
     results: {
-      title: 'نجح مع fit20 Qatar.',
-      body: 'برنامج لياقة في الدوحة. نفس الإعلانات، بدون عملاء محتملين إضافيين. كل رسالة جاها رد سريع ودفعة للحجز.',
+      title: 'مجرّب وناجح في قطر.',
+      body: 'أرقام حقيقية من شركة لياقة في الدوحة. نفس الإعلانات، بدون عملاء محتملين إضافيين. كل رسالة جاها رد سريع ودفعة للحجز.',
+      by: 'شركة لياقة، الدوحة',
       table: {
         head: ['أول 30 يوم', 'قبل', 'بعد'],
         rows: [
