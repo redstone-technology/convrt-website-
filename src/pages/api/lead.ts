@@ -19,7 +19,7 @@ const CATEGORY: Record<string, string> = {
   'Salon or spa': 'Salon',
 }
 
-// The target is mid-to-high budget clinics. Leads under this are flagged for the setter.
+// The target is mid-to-high budget businesses. Leads under this are flagged for the setter.
 const LOW_BUDGET = 'Under QAR 15,000'
 
 const clip = (v: unknown, n = 200) => (typeof v === 'string' ? v.trim().slice(0, n) : '')
@@ -56,13 +56,13 @@ export const POST: APIRoute = async ({ request }) => {
     .join(', ')
 
   const notes = [
-    'Source: convrt.qa/start (website qualify form)',
+    'Source: convrt.qa/start (website qualify form, AI Closer)',
     `Contact name: ${name}`,
     `Running ads: ${clip(body.ads, 60) || '-'}`,
     `Business type: ${type || '-'}`,
     `Monthly ad spend: ${clip(body.spend, 60) || '-'}${clip(body.spend, 60) === LOW_BUDGET ? ' (below target budget)' : ''}`,
-    `After the click they go to: ${list(body.where).join(', ') || '-'}`,
-    `Biggest problem: ${list(body.problem).join(', ') || '-'}`,
+    `Customers message on: ${list(body.where).join(', ') || '-'}`,
+    `What happens to messages today: ${list(body.problem).join(', ') || '-'}`,
     `Best time to call: ${clip(body.time, 30) || '-'}`,
     `Language: ${clip(body.lang, 5) === 'ar' ? 'Arabic' : 'English'}`,
     utmLine ? `Tracking: ${utmLine}` : '',

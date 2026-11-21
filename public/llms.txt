@@ -1,14 +1,22 @@
 # Convrt
 
-> Convrt helps businesses get more customers from the ads they already pay for. It does not run ads or bring traffic. It builds and improves the system between an ad and the payment: the page, the replies, the follow-up and the booking. Based in Doha, Qatar. Part of Redstone Technology.
+> Convrt builds the AI Closer: an AI that sits inside a business's Instagram, Facebook and WhatsApp, replies to every customer in seconds, in Arabic or English, and books them automatically, 24/7. More customers from the money a business already spends on ads. Convrt does not run ads. Based in Doha, Qatar. Part of Redstone Technology.
 
-## Services
-- Funnel Setup (one-time, custom software development): map the customer journey, find where people drop off, and build or fix the funnel.
-- Funnel Optimization (monthly, software maintenance and support): A/B tests, analysis and ongoing improvements.
-- Sales Closer (monthly or yearly): help turning interested, qualified leads into paying customers.
+## What the AI Closer does
+- Replies to Instagram DMs and comments, Facebook messages and WhatsApp in seconds, in Arabic or English.
+- Qualifies each person (what they want, how serious they are) and moves the chat to a booking.
+- Follows up when people go quiet, until they book or say no.
+- Human in the loop: anything it is not sure about goes to the owner. It never guesses.
+- Every lead and conversation is visible to the owner in one dashboard.
+- Works alongside the business's team. It does not replace staff.
+
+## How it is sold
+- One-time setup (custom software development): Convrt builds it and connects the business's channels.
+- The first month of maintenance and support is free.
+- Then a monthly fee for software maintenance and support.
 
 ## Who it is for
-Businesses already running paid ads, such as gyms and fitness studios, aesthetic and dental clinics, real estate, education and training, and car businesses.
+Businesses already running paid ads, such as clinics, gyms and fitness studios, real estate, education and training, and car businesses.
 
 ## Result
 - fit20 Qatar (fitness program, Doha), first 30 days: more than 60% of incoming leads booked (up from effectively 0%), and new sales of more than 10x the ad spend in the same period.

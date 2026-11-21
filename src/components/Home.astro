@@ -50,20 +50,12 @@ const p = c.plan.frag
       <h2 class="h2">{t.segments.title}</h2>
       <p class="lede segs__sub">{t.segments.sub}</p>
       <div class="segs__grid">
-        {t.segments.items.map((g) =>
-          g.href ? (
-            <a class="seg glass seg--link" href={`${prefix}${g.href}`}>
-              <h3>{g.name}</h3>
-              <p>{g.leak}</p>
-              <span class="seg__more">{t.segments.more} <span aria-hidden="true">→</span></span>
-            </a>
-          ) : (
-            <div class="seg glass">
-              <h3>{g.name}</h3>
-              <p>{g.leak}</p>
-            </div>
-          )
-        )}
+        {t.segments.items.map((g) => (
+          <div class="seg glass">
+            <h3>{g.name}</h3>
+            <p>{g.leak}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -85,9 +77,9 @@ const p = c.plan.frag
         </div>
         <div class="frag" aria-hidden="true">
           <div class="chips">
-            {p.clinic.map((c, i) => <span class={i === 0 ? 'on' : ''}>{c}</span>)}
+            {p.channels.map((c, i) => <span class={i === 0 ? 'on' : ''}>{c}</span>)}
           </div>
-          <div class="progress"><i></i></div>
+          <span class="replied">{p.replied}</span>
         </div>
       </li>
       <li class="move">
@@ -97,15 +89,9 @@ const p = c.plan.frag
           <p>{c.plan.steps[1].body}</p>
         </div>
         <div class="frag" aria-hidden="true">
-          <div class="funnel">
-            {p.funnel.map((f, i) => (
-              <div class={`funnel__row ${i === 2 ? 'is-leak' : ''}`} style={`--w:${[100, 74, 30, 22][i]}%`}>
-                <span>{f}</span>
-                <i></i>
-              </div>
-            ))}
-          </div>
-          <span class="leak-tag">{p.leak}</span>
+          <ul class="checks">
+            {p.checks.map((x, i) => <li class={i === p.checks.length - 1 ? 'is-done' : ''}>{x}</li>)}
+          </ul>
         </div>
       </li>
       <li class="move">
@@ -165,7 +151,7 @@ const p = c.plan.frag
         <div class={`cal__row ${i === 0 ? 'is-first' : ''}`}>
           <span class="cal__when"><b>{r.day}</b> {r.time}</span>
           <span class="cal__name">{r.name}</span>
-          <span class={`cal__status ${i < 2 ? 'is-booked' : ''}`}>{r.status}</span>
+          <span class={`cal__status ${i < 2 ? 'is-booked' : i === 3 ? 'is-you' : ''}`}>{r.status}</span>
         </div>
       ))}
     </div>
@@ -182,7 +168,25 @@ const p = c.plan.frag
   </div>
 </section>
 
-<!-- 6. The call to action -->
+<!-- 6. How we start -->
+<section class="model" id="start">
+  <div class="wrap">
+    <h2 class="h2">{c.model.title}</h2>
+    <p class="lede model__sub">{c.model.sub}</p>
+    <ol class="model__grid">
+      {c.model.steps.map((s, i) => (
+        <li class={`model__card glass ${i === 1 ? 'is-free' : ''}`}>
+          <span class="model__n">{s.n}</span>
+          <h3>{s.title}</h3>
+          <p>{s.body}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="model__small">{c.model.small}</p>
+  </div>
+</section>
+
+<!-- 7. The call to action -->
 <section class="closing">
   <div class="wrap">
     <div class="closing__card glass">
@@ -467,55 +471,59 @@ const p = c.plan.frag
     font-weight: 600;
     box-shadow: inset 0 0 0 1px rgba(11, 118, 245, 0.35);
   }
-  .progress {
-    height: 6px;
-    overflow: hidden;
+  .replied {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
     border-radius: 99px;
-    background: var(--hair);
+    background: var(--lime);
+    color: var(--charcoal);
+    font-size: 12.5px;
+    font-weight: 600;
   }
-  .progress i {
-    display: block;
-    width: 40%;
-    height: 100%;
-    border-radius: inherit;
-    background: var(--blue);
+  .replied::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--charcoal);
   }
-  .funnel {
+  .checks {
     display: grid;
-    gap: 5px;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
-  .funnel__row {
-    display: grid;
-    grid-template-columns: 64px 1fr;
+  .checks li {
+    display: flex;
     align-items: center;
     gap: 8px;
-    color: rgba(30, 28, 33, 0.6);
-    font-size: 12px;
+    color: var(--ink-2);
+    font-size: 13px;
   }
-  .funnel__row i {
-    display: block;
-    width: var(--w);
-    height: 10px;
-    border-radius: 99px;
-    background: rgba(11, 118, 245, 0.55);
-  }
-  .funnel__row.is-leak i {
-    background: #ff6b5e;
-  }
-  .funnel__row.is-leak span {
-    color: #d93036;
-    font-weight: 600;
-  }
-  .leak-tag {
-    position: absolute;
-    inset-inline-end: 12px;
-    top: 50%;
-    padding: 2px 8px;
-    border-radius: 99px;
-    background: #ffe3e0;
-    color: #d93036;
+  .checks li::before {
+    content: '✓';
+    display: grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--tint);
+    color: var(--blue-deep);
     font-size: 11px;
+    font-weight: 700;
+  }
+  .checks li.is-done {
+    color: var(--ink);
     font-weight: 600;
+  }
+  .checks li.is-done::before {
+    background: var(--lime);
+    color: var(--charcoal);
   }
   .frag .bubble {
     margin-top: 0;
@@ -697,6 +705,11 @@ const p = c.plan.frag
     color: var(--charcoal);
     font-weight: 600;
   }
+  .cal__status.is-you {
+    background: #ffe9c7;
+    color: #8a4b00;
+    font-weight: 600;
+  }
   .get__copy .lede {
     margin-top: 20px;
   }
@@ -717,6 +730,60 @@ const p = c.plan.frag
     color: rgba(30, 28, 33, 0.55);
     font-size: 13px;
     padding-top: 3px;
+  }
+
+  /* How we start: three cards, the free month highlighted */
+  .model {
+    padding: clamp(60px, 10vh, 120px) 0 0;
+  }
+  .model__sub {
+    max-width: 44ch;
+    margin-top: 18px;
+  }
+  .model__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 44px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .model__card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px;
+    border-radius: var(--r-m);
+  }
+  .model__card.is-free {
+    background-color: var(--blue);
+    background-image: var(--grain-color);
+    color: #fff;
+  }
+  .model__n {
+    color: rgba(30, 28, 33, 0.55);
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .model__card h3 {
+    font-size: 22px;
+    letter-spacing: -0.025em;
+  }
+  .model__card p {
+    color: var(--ink-2);
+    font-size: 16px;
+  }
+  .model__card.is-free .model__n,
+  .model__card.is-free p {
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .model__card.is-free h3 {
+    color: #fff;
+  }
+  .model__small {
+    margin-top: 18px;
+    color: rgba(30, 28, 33, 0.6);
+    font-size: 14px;
   }
 
   /* Closing card with a wave */
@@ -780,7 +847,8 @@ const p = c.plan.frag
       position: static;
     }
     .board,
-    .get__grid {
+    .get__grid,
+    .model__grid {
       grid-template-columns: 1fr;
     }
   }
