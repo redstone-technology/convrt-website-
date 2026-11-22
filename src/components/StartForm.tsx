@@ -90,7 +90,7 @@ export default function StartForm({ t }: { t: Dict }) {
     }
   }
 
-  const home = t.lang === 'ar' ? '/ar' : '/'
+  const home = '/'
   const noAds = picks.ads[0] === 2
 
   if (state === 'done') {
@@ -195,7 +195,7 @@ export default function StartForm({ t }: { t: Dict }) {
           </button>
           {state === 'error' && <p className="sf__error" role="alert">{s.error}</p>}
           <p className="sf__fine">
-            {s.contact.privacy} <a href="/privacy">{s.contact.privacyLink}</a>
+            {s.contact.privacy} <a href={t.lang === 'ar' ? 'https://convrt.qa/privacy' : '/privacy'}>{s.contact.privacyLink}</a>
           </p>
         </form>
       )}

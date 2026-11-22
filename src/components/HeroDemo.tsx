@@ -14,7 +14,10 @@ type S = { reply: boolean; replyTyping: boolean; answer: boolean; answerTyping: 
 const initial: S = { reply: false, replyTyping: false, answer: false, answerTyping: false, confirm: false, confirmTyping: false, status: 'new', banner: false }
 const poster: S = { reply: true, replyTyping: false, answer: true, answerTyping: false, confirm: true, confirmTyping: false, status: 'booked', banner: true }
 
-const LABEL: Record<Status, string> = { new: 'New lead', replied: 'Replied', booked: 'Booked' }
+const COPY = {
+  en: { status: { new: 'New lead', replied: 'Replied', booked: 'Booked' }, leads: 'Leads', today: 'Today', name: 'Sara A.', avatar: 'Sara A', from: 'From your ad', stamp: 'Today 9:38', adref: 'Replied to your ad', answer: 'Tuesday works', confirm: "You're booked for Tue, 6:00 PM. See you then!", field: 'Message', bannerTitle: 'New booking', bannerBody: 'Sara A. · Tue, 6:00 PM' },
+  ar: { status: { new: 'عميل جديد', replied: 'تم الرد', booked: 'تم الحجز' }, leads: 'العملاء', today: 'اليوم', name: 'سارة أ.', avatar: 'سارة', from: 'من إعلانك', stamp: 'اليوم 9:38', adref: 'ردّ على إعلانك', answer: 'الثلاثاء يناسبني', confirm: 'تم حجز موعدك يوم الثلاثاء الساعة 6:00 مساءً. نراك قريباً!', field: 'رسالة', bannerTitle: 'حجز جديد', bannerBody: 'سارة أ. · الثلاثاء 6:00 م' },
+}
 const TONE: Record<Status, 'accent' | 'neutral' | 'success'> = { new: 'accent', replied: 'neutral', booked: 'success' }
 
 async function script(a: Act<S>) {
@@ -52,26 +55,27 @@ function Check() {
   )
 }
 
-export default function ConvrtHero({ ask = 'Hi! Saw your ad. How much is it?', reply = 'Hi Sara! Happy to help. Want to book a visit? Tue or Thu?' }: { ask?: string; reply?: string }) {
+export default function ConvrtHero({ lang = 'en', ask = 'Hi! Saw your ad. How much is it?', reply = 'Hi Sara! Happy to help. Want to book a visit? Tue or Thu?' }: { lang?: string; ask?: string; reply?: string }) {
+  const k = lang === 'ar' ? COPY.ar : COPY.en
   return (
     <Stage width={720} height={460} compact={{ below: 480, width: 358, height: 460 }} initial={initial} poster={poster} script={script} play="once" className="cvh">
       {(s, _rect, layout) => (
         <>
           {layout === 'wide' && (
-            <Window title="Leads" className="cvh-window">
+            <Window title={k.leads} className="cvh-window">
               <div className="cvh-list">
                 <div className="cvh-head">
-                  <Text className="cvh-label">Today</Text>
+                  <Text className="cvh-label">{k.today}</Text>
                 </div>
                 <Row
                   className="cvh-row"
                   selected
-                  lead={<Avatar name="Sara A" tone="accent" size={32} />}
-                  title={<Text>Sara A.</Text>}
-                  subtitle={<Text className="cvh-sub">From your ad</Text>}
+                  lead={<Avatar name={k.avatar} tone="accent" size={32} />}
+                  title={<Text>{k.name}</Text>}
+                  subtitle={<Text className="cvh-sub">{k.from}</Text>}
                   meta={
                     <Badge tone={TONE[s.status]} className="cvh-badge">
-                      <Roll variant="fade">{LABEL[s.status]}</Roll>
+                      <Roll variant="fade">{k.status[s.status]}</Roll>
                     </Badge>
                   }
                 />
@@ -89,9 +93,9 @@ export default function ConvrtHero({ ask = 'Hi! Saw your ad. How much is it?', r
 
           <Phone width={layout === 'wide' ? 320 : 326} className="cvh-phone">
             <Thread className="cvh-thread">
-              <Stamp>Today 9:38</Stamp>
+              <Stamp>{k.stamp}</Stamp>
               <div className="cvh-adref">
-                <span className="cvh-adref__label">Replied to your ad</span>
+                <span className="cvh-adref__label">{k.adref}</span>
                 <div className="cvh-adref__card" aria-hidden>
                   <div className="cvh-adref__img" />
                   <div className="cvh-adref__meta">
@@ -108,12 +112,12 @@ export default function ConvrtHero({ ask = 'Hi! Saw your ad. How much is it?', r
               )}
               {s.answer && (
                 <Bubble from="them" typing={s.answerTyping}>
-                  Tuesday works
+                  {k.answer}
                 </Bubble>
               )}
               {s.confirm && (
                 <Bubble from="me" typing={s.confirmTyping}>
-                  You're booked for Tue, 6:00 PM. See you then!
+                  {k.confirm}
                 </Bubble>
               )}
             </Thread>
@@ -123,11 +127,11 @@ export default function ConvrtHero({ ask = 'Hi! Saw your ad. How much is it?', r
                   <path d="M8 2.5v11M2.5 8h11" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
                 </svg>
               </span>
-              <span className="cvh-field">Message</span>
+              <span className="cvh-field">{k.field}</span>
             </div>
             {layout === 'compact' && (
               <div className="cvh-banner" data-show={s.banner || undefined}>
-                <Notification banner icon={<span className="cvh-app"><Check /></span>} title="New booking" body="Sara A. · Tue, 6:00 PM" />
+                <Notification banner icon={<span className="cvh-app"><Check /></span>} title={k.bannerTitle} body={k.bannerBody} />
               </div>
             )}
           </Phone>

@@ -215,3 +215,13 @@
     box-shadow: inset 0 0 0 1px var(--ss-line);
   }
 }
+
+/* Arabic site: the stage kit lays out left-to-right, so set the text parts
+   right-to-left. Rows and bubbles mirror like an Arabic chat app. */
+:root[dir='rtl'] .cvh .cvh-list,
+:root[dir='rtl'] .cvh .cvh-thread,
+:root[dir='rtl'] .cvh .cvh-compose,
+:root[dir='rtl'] .cvh .cvh-banner,
+:root[dir='rtl'] .cvh .cvh-badge {
+  direction: rtl;
+}

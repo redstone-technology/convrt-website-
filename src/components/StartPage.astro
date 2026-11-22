@@ -5,15 +5,13 @@ import StartForm from './StartForm.tsx'
 import type { Dict } from '../i18n/en'
 interface Props { t: Dict }
 const { t } = Astro.props
-const home = t.lang === 'ar' ? '/ar' : '/'
-const altHref = t.lang === 'ar' ? '/start' : '/ar/start'
+const home = '/'
 ---
 <Base t={t} enPath="/start" title={t.start.metaTitle} description={t.start.sub} nav={false}>
   <div class="start">
     <div class="start__glow" aria-hidden="true"></div>
     <header class="start__head wrap">
       <a href={home} aria-label="Convrt home"><Logo size={24} /></a>
-      {t.lang === 'ar' && <a href={altHref} class="start__lang" lang="en">{t.nav.switch}</a>}
     </header>
     <div class="start__body wrap">
       <div class="start__intro">

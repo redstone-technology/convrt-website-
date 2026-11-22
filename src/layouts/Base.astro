@@ -18,9 +18,8 @@ interface Props {
 
 const { t, title = t.meta.title, description = t.meta.description, enPath, hasAlt = true, nav = true, jsonLd } = Astro.props
 const site = 'https://convrt.qa'
-const arPath = enPath === '/' ? '/ar' : `/ar${enPath}`
-const self = t.lang === 'ar' ? arPath : enPath
-const canonical = new URL(self, site).href
+// English lives at convrt.qa; the Arabic site at ar.convrt.qa (served from /ar).
+const canonical = t.lang === 'ar' ? new URL(enPath, 'https://ar.convrt.qa').href : new URL(enPath, site).href
 
 const org = {
   '@context': 'https://schema.org',
@@ -42,9 +41,6 @@ const org = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {hasAlt && <link rel="alternate" hreflang="en" href={new URL(enPath, site).href} />}
-    {hasAlt && <link rel="alternate" hreflang="ar" href={new URL(arPath, site).href} />}
-    {hasAlt && <link rel="alternate" hreflang="x-default" href={new URL(enPath, site).href} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#F4F3F1" />
     <meta property="og:type" content="website" />

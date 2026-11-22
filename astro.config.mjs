@@ -11,9 +11,8 @@ export default defineConfig({
   adapter: vercel(),
   integrations: [
     react(),
-    sitemap({
-      i18n: { defaultLocale: 'en', locales: { en: 'en', ar: 'ar' } },
-      filter: (page) => !page.includes('/api/'),
-    }),
+    // The Arabic pages (/ar) are served at ar.convrt.qa, so they stay out of
+    // convrt.qa's sitemap.
+    sitemap({ filter: (page) => !page.includes('/api/') && !/\/ar(\/|$)/.test(new URL(page).pathname) }),
   ],
 })

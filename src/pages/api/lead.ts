@@ -56,7 +56,7 @@ export const POST: APIRoute = async ({ request }) => {
     .join(', ')
 
   const notes = [
-    'Source: convrt.qa/start (website qualify form, AI Closer)',
+    `Source: ${clip(body.lang, 5) === 'ar' ? 'ar.convrt.qa/start (Arabic site)' : 'convrt.qa/start'} (website qualify form, AI Closer)`,
     `Contact name: ${name}`,
     `Running ads: ${clip(body.ads, 60) || '-'}`,
     `Business type: ${type || '-'}`,

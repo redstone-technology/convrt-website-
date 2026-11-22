@@ -3,7 +3,7 @@ import HeroDemo from './HeroDemo.tsx'
 import type { Dict } from '../i18n/en'
 interface Props { t: Dict; c: Dict['home']; segments?: boolean }
 const { t, c, segments = false } = Astro.props
-const prefix = t.lang === 'ar' ? '/ar' : ''
+const prefix = ''
 const start = `${prefix}/start`
 const p = c.plan.frag
 ---
@@ -23,7 +23,7 @@ const p = c.plan.frag
   <div class="wrap scene">
     <div class="plate" dir="ltr">
       <div class="plate__stage" data-ss-fill>
-        <HeroDemo client:visible ask={c.hero.demo.ask} reply={c.hero.demo.reply} />
+        <HeroDemo client:visible lang={t.lang} ask={c.hero.demo.ask} reply={c.hero.demo.reply} />
       </div>
     </div>
   </div>

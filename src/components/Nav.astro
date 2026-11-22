@@ -2,12 +2,13 @@
 import Logo from './Logo.astro'
 import type { Dict } from '../i18n/en'
 interface Props { t: Dict; enPath: string; hasAlt?: boolean }
-const { t, enPath, hasAlt = true } = Astro.props
-const home = t.lang === 'ar' ? '/ar' : '/'
-const start = t.lang === 'ar' ? '/ar/start' : '/start'
-const blog = t.lang === 'ar' ? '/ar/blog' : '/blog'
-const alt = t.lang === 'ar' ? enPath : enPath === '/' ? '/ar' : `/ar${enPath}`
-const switchHref = hasAlt ? alt : t.nav.switchHref
+const { t } = Astro.props
+// The Arabic site is served at ar.convrt.qa, where "/" and "/start" map to
+// /ar and /ar/start. So links are root-relative in both languages.
+const isAr = t.lang === 'ar'
+const home = '/'
+const start = '/start'
+const blog = '/blog'
 ---
 <header class="nav glass">
   <a href={home} class="nav__logo" aria-label="Convrt home"><Logo size={24} /></a>
@@ -15,10 +16,9 @@ const switchHref = hasAlt ? alt : t.nav.switchHref
     <a href={`${home}#segments`}>{t.nav.segments}</a>
     <a href={`${home}#how`}>{t.nav.how}</a>
     <a href={`${home}#results`}>{t.nav.results}</a>
-    <a href={blog}>{t.nav.blog}</a>
+    {!isAr && <a href={blog}>{t.nav.blog}</a>}
   </nav>
   <div class="nav__end">
-    {t.lang === 'ar' && <a href={switchHref} class="nav__lang" hreflang="en" lang="en">{t.nav.switch}</a>}
     <a href={start} class="btn nav__cta">{t.nav.cta}</a>
   </div>
 </header>
