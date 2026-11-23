@@ -1,34 +1,21 @@
 ---
-// STAND-IN until the official SVG logo arrives: Archivo wordmark with a
-// simple blue asterisk in place of the "o". Replace with the real files.
+// The official Convrt wordmark (traced to SVG from the brand files).
+// `size` keeps the old meaning: roughly the font size the logo sits beside.
+import wordmark from '../assets/convrt-wordmark.svg?raw'
 interface Props { size?: number; class?: string }
 const { size = 26, class: cls = '' } = Astro.props
 ---
-<span class={`logo ${cls}`} style={`--logo-size:${size}px`} aria-label="Convrt" dir="ltr">
-  <span aria-hidden="true">c</span><svg class="logo__mark" viewBox="0 0 24 24" aria-hidden="true">
-    <g fill="#0B76F5" transform="translate(12 12)">
-      <rect x="-2.3" y="-11" width="4.6" height="22" rx="2.3" />
-      <rect x="-2.3" y="-11" width="4.6" height="22" rx="2.3" transform="rotate(45)" />
-      <rect x="-2.3" y="-11" width="4.6" height="22" rx="2.3" transform="rotate(90)" />
-      <rect x="-2.3" y="-11" width="4.6" height="22" rx="2.3" transform="rotate(135)" />
-    </g>
-  </svg><span aria-hidden="true">nvrt</span>
-</span>
+<span class={`logo ${cls}`} style={`--logo-size:${size}px`} role="img" aria-label="Convrt" dir="ltr" set:html={wordmark} />
 <style>
   .logo {
     display: inline-flex;
     align-items: center;
-    font-family: 'Archivo', system-ui, sans-serif;
-    font-weight: 800;
-    font-size: var(--logo-size);
-    letter-spacing: -0.04em;
-    line-height: 1;
-    color: var(--charcoal);
+    color: #000;
+    line-height: 0;
   }
-  .logo__mark {
-    width: 0.62em;
-    height: 0.62em;
-    margin: 0 0.02em 0 0.04em;
-    transform: translateY(0.04em);
+  .logo :global(svg) {
+    display: block;
+    width: auto;
+    height: calc(var(--logo-size) * 0.92);
   }
 </style>
