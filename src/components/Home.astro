@@ -180,21 +180,16 @@ const p = c.plan.frag
   </div>
 </section>
 
-<!-- 6. How we start -->
-<section class="model" id="start">
+<!-- 6. Soft call to action -->
+<section class="soft">
   <div class="wrap">
-    <h2 class="h2">{c.model.title}</h2>
-    <p class="lede model__sub">{c.model.sub}</p>
-    <ol class="model__grid">
-      {c.model.steps.map((s, i) => (
-        <li class={`model__card glass ${i === 1 ? 'is-free' : ''}`}>
-          <span class="model__n">{s.n}</span>
-          <h3>{s.title}</h3>
-          <p>{s.body}</p>
-        </li>
-      ))}
-    </ol>
-    <p class="model__small">{c.model.small}</p>
+    <div class="soft__bar glass">
+      <div>
+        <h2 class="soft__title">{c.soft.title}</h2>
+        <p class="soft__body">{c.soft.body}</p>
+      </div>
+      <a href={start} class="btn btn--ghost soft__btn">{c.soft.cta}</a>
+    </div>
   </div>
 </section>
 
@@ -755,58 +750,29 @@ const p = c.plan.frag
     padding-top: 3px;
   }
 
-  /* How we start: three cards, the free month highlighted */
-  .model {
-    padding: clamp(60px, 10vh, 120px) 0 0;
+  /* Soft call to action: one quiet bar */
+  .soft {
+    padding: clamp(40px, 7vh, 80px) 0 0;
   }
-  .model__sub {
-    max-width: 44ch;
-    margin-top: 18px;
-  }
-  .model__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin: 44px 0 0;
-    padding: 0;
-    list-style: none;
-  }
-  .model__card {
+  .soft__bar {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 30px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    padding: 26px 30px;
     border-radius: var(--r-m);
   }
-  .model__card.is-free {
-    background-color: var(--blue);
-    background-image: var(--grain-color);
-    color: #fff;
-  }
-  .model__n {
-    color: rgba(30, 28, 33, 0.55);
-    font-size: 13px;
-    font-weight: 500;
-  }
-  .model__card h3 {
+  .soft__title {
     font-size: 22px;
     letter-spacing: -0.025em;
   }
-  .model__card p {
+  .soft__body {
+    margin-top: 4px;
     color: var(--ink-2);
     font-size: 16px;
   }
-  .model__card.is-free .model__n,
-  .model__card.is-free p {
-    color: rgba(255, 255, 255, 0.82);
-  }
-  .model__card.is-free h3 {
-    color: #fff;
-  }
-  .model__small {
-    margin-top: 18px;
-    color: rgba(30, 28, 33, 0.6);
-    font-size: 14px;
+  .soft__btn {
+    flex: none;
   }
 
   /* Closing card with a wave */
@@ -870,8 +836,7 @@ const p = c.plan.frag
       position: static;
     }
     .board,
-    .get__grid,
-    .model__grid {
+    .get__grid {
       grid-template-columns: 1fr;
     }
   }
@@ -917,8 +882,7 @@ const p = c.plan.frag
     .segs,
     .moves,
     .proof-sec,
-    .get,
-    .model {
+    .get {
       padding: 52px 0;
     }
     .h2 {
@@ -1194,45 +1158,25 @@ const p = c.plan.frag
       font-size: 16px;
     }
 
-    /* How we start: a short numbered list */
-    .model__sub {
-      margin-top: 12px;
+    /* Soft call to action */
+    .soft {
+      padding: 8px 0 0;
     }
-    .model__grid {
-      gap: 10px;
-      margin-top: 24px;
+    .soft__bar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+      padding: 20px;
+      border-radius: 24px;
     }
-    .model__card {
-      display: grid;
-      grid-template-columns: 34px 1fr;
-      gap: 4px 14px;
-      padding: 18px 20px;
-      border-radius: 22px;
+    .soft__title {
+      font-size: 19px;
     }
-    .model__n {
-      grid-row: span 2;
-      display: grid;
-      place-items: center;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: var(--glass-inset);
-      color: var(--ink-2);
-      font-size: 12px;
-      font-weight: 600;
+    .soft__body {
+      font-size: 15px;
     }
-    .model__card.is-free .model__n {
-      background: rgba(255, 255, 255, 0.2);
-      color: #fff;
-    }
-    .model__card h3 {
-      font-size: 18px;
-    }
-    .model__card p {
-      font-size: 14.5px;
-    }
-    .model__small {
-      font-size: 13px;
+    .soft__btn {
+      width: 100%;
     }
 
     /* Closing card */

@@ -105,15 +105,10 @@ export const en = {
       },
       cta: "See if we're a fit",
     },
-    model: {
-      title: 'How we start',
-      sub: 'We set it up once, then we look after it.',
-      steps: [
-        { n: '01', title: 'We build it for you', body: 'One-time setup. We connect your Instagram, Facebook and WhatsApp, and teach it your business.' },
-        { n: '02', title: 'First month free', body: 'Your first month of maintenance and support is on us.' },
-        { n: '03', title: 'Then a small monthly fee', body: 'For maintenance and support. We keep it running and keep it sharp.' },
-      ],
-      small: "We'll go through the details on the call.",
+    soft: {
+      title: 'Not sure yet?',
+      body: "Answer a few quick questions. If it's not a fit for your business, we'll tell you.",
+      cta: 'Take the 2-minute check',
     },
     final: {
       title: 'Your next customer is in your DMs right now.',
